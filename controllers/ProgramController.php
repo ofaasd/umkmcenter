@@ -8,6 +8,8 @@ use app\models\ProgramSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Query;
+
 
 /**
  * ProgramController implements the CRUD actions for Program model.
@@ -64,6 +66,10 @@ class ProgramController extends Controller
      */
     public function actionCreate()
     {
+        $query = new Query;
+        $query->select("*,(select count(*) from programusaha where usaha_id = usaha.id and programusaha.program_id = 1) as jumlah")
+              ->from("usaha");
+        $usaha = $query->all();
         $model = new Program();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -72,6 +78,7 @@ class ProgramController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'usaha' => $usaha,
         ]);
     }
 

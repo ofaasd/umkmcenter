@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ProgramSearch */
+/* @var $searchModel app\models\IzinSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Programs';
+$this->title = 'Izins';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="program-index">
+<div class="izin-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Program', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Izin', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,8 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'nama',
-            'tahun_acara',
+            'akte_notaris',
+            'badan_hukum',
+            'siup',
+            'npwp',
+            //'tdp',
+            //'lain',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

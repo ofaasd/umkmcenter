@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Usaha */
+/* @var $model app\models\Izin */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Usahas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Izins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="usaha-view">
+<div class="izin-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,18 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'pemilik_id',
-            'bidang_id',
-            'izin_id',
-            'mentor_id',
-            'nama_usaha',
-            'tahun_berdiri',
-            'alamat_usaha:ntext',
-            'notelp',
-            'email:email',
-            'website',
-            'kredit_bank',
-            'tenaga_kerja',
+            'akte_notaris',
+            'badan_hukum',
+            'siup',
+            'npwp',
+            'tdp',
+            'lain',
         ],
     ]) ?>
 

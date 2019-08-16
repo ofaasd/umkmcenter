@@ -9,6 +9,8 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use rmrevin\yii\fontawesome\FAS;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -31,8 +33,8 @@ AppAsset::register($this);
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
-          <div class="sidenav-header-inner text-center"><img src="img/avatar-7.jpg" alt="person" class="img-fluid rounded-circle">
-            <h2 class="h5">Nathan Andrews</h2><span>Web Developer</span>
+          <div class="sidenav-header-inner text-center"><img src="<?= Url::base(); ?>/asset/img/avatar-2.jpg" alt="person" class="img-fluid rounded-circle">
+            <h2 class="h5">Hi! </h2><span>Admin</span>
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
           <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
@@ -41,7 +43,15 @@ AppAsset::register($this);
         <div class="main-menu">
           <h5 class="sidenav-heading">Main</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li><a href="index.html"> <i class="icon-home"></i>Home</a></li>
+            <li><a href="<?= Url::toRoute(['site/index']);?>"><?= FAS::icon('home');?> Home</a></li>
+            <!-- <li><a href="<?= Url::toRoute(['pemilik/index']);?>"><?= FAS::icon('user-tie');?> Pemilik</a></li> -->
+            <li><a href="<?= Url::toRoute(['program/index']);?>"><?= FAS::icon('layer-group');?>Daftar Pelatihan</a></li>
+            <li><a href="<?= Url::toRoute(['mentor/index']);?>"><?= FAS::icon('user-tie');?> Daftar Mentor</a></li>
+            <li><a href="<?= Url::toRoute(['bidang/index']);?>"><?= FAS::icon('tags');?> Bidang Usaha</a></li>
+            <li><a href="<?= Url::toRoute(['usaha/index']);?>"><?= FAS::icon('hotel');?> Usaha</a></li>
+            <li><a href="<?= Url::toRoute(['omset/index']);?>"><?= FAS::icon('money-check-alt');?> Omset</a></li>
+
+
         </div>
       </div>
     </nav>
@@ -51,11 +61,15 @@ AppAsset::register($this);
         <nav class="navbar">
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
-              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><span>Bootstrap </span><strong class="text-primary">Dashboard</strong></div></a></div>
+              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><?= FAS::icon('bars'); ?></a><a href="index.html" class="navbar-brand">
+                  <div class="brand-text d-none d-md-inline-block"><span>UMKM Center </span><strong class="text-primary">Dashboard</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Log out-->
-                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i class="fa fa-sign-out"></i></a></li>
+                <form action="<?= Url::toRoute(['site/logout']);?>" method="post">
+                  <li class="nav-item"><a href="" class="nav-link logout"> 
+                    <button type="submit" class="d-none d-sm-inline-block" style="background:none;border:0;color:#fff;">Logout</button><i class="fa fa-sign-out"></i></a>
+                  </li>
+                </form>
               </ul>
             </div>
           </div>

@@ -31,7 +31,7 @@ class Pemilik extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'alamat', 'notelp', 'status'], 'required'],
+            [['nama', 'alamat', 'notelp'], 'required'],
             [['alamat'], 'string'],
             [['status'], 'integer'],
             [['nama'], 'string', 'max' => 120],

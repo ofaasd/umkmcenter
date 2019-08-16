@@ -11,17 +11,25 @@ use Yii;
  * @property int $program_id
  * @property int $kategori_id
  * @property int $pemilik_id
- * @property string $nama
+ * @property int $bidang_id
+ * @property int $izin_id
+ * @property int $mentor_id
+ * @property string $nama_usaha
  * @property int $tahun_berdiri
- * @property string $alamat
+ * @property string $alamat_usaha
  * @property string $notelp
  * @property string $email
  * @property string $website
+ * @property int $kredit_bank
+ * @property int $tenaga_kerja
  *
  * @property Omset[] $omsets
  * @property Kategori $kategori
  * @property Program $program
  * @property Pemilik $pemilik
+ * @property Bidang $bidang
+ * @property Izin $izin
+ * @property Mentor $mentor
  */
 class Usaha extends \yii\db\ActiveRecord
 {
@@ -39,15 +47,17 @@ class Usaha extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['program_id', 'kategori_id', 'pemilik_id', 'nama', 'tahun_berdiri', 'alamat', 'notelp', 'email', 'website'], 'required'],
-            [['program_id', 'kategori_id', 'pemilik_id', 'tahun_berdiri'], 'integer'],
-            [['alamat'], 'string'],
-            [['nama'], 'string', 'max' => 100],
+            [['pemilik_id', 'bidang_id', 'izin_id', 'mentor_id', 'nama_usaha', 'tahun_berdiri', 'alamat_usaha', 'notelp', 'email', 'website', 'kredit_bank', 'tenaga_kerja'], 'required'],
+            [['pemilik_id', 'bidang_id', 'izin_id', 'mentor_id', 'kredit_bank', 'tenaga_kerja'], 'integer'],
+            [['alamat_usaha'], 'string'],
+            [['tahun_berdiri'],'string','max'=>30],
+            [['nama_usaha'], 'string', 'max' => 100],
             [['notelp'], 'string', 'max' => 20],
             [['email', 'website'], 'string', 'max' => 120],
-            [['kategori_id'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['kategori_id' => 'id']],
-            [['program_id'], 'exist', 'skipOnError' => true, 'targetClass' => Program::className(), 'targetAttribute' => ['program_id' => 'id']],
             [['pemilik_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pemilik::className(), 'targetAttribute' => ['pemilik_id' => 'id']],
+            [['bidang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bidang::className(), 'targetAttribute' => ['bidang_id' => 'id']],
+            [['izin_id'], 'exist', 'skipOnError' => true, 'targetClass' => Izin::className(), 'targetAttribute' => ['izin_id' => 'id']],
+            [['mentor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Mentor::className(), 'targetAttribute' => ['mentor_id' => 'id']],
         ];
     }
 
@@ -58,15 +68,18 @@ class Usaha extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'program_id' => 'Program ID',
-            'kategori_id' => 'Kategori ID',
             'pemilik_id' => 'Pemilik ID',
-            'nama' => 'Nama',
+            'bidang_id' => 'Bidang ID',
+            'izin_id' => 'Izin ID',
+            'mentor_id' => 'Mentor ID',
+            'nama_usaha' => 'Nama Usaha',
             'tahun_berdiri' => 'Tahun Berdiri',
-            'alamat' => 'Alamat',
+            'alamat_usaha' => 'Alamat Usaha',
             'notelp' => 'Notelp',
             'email' => 'Email',
             'website' => 'Website',
+            'kredit_bank' => 'Kredit Bank',
+            'tenaga_kerja' => 'Tenaga Kerja',
         ];
     }
 
@@ -76,23 +89,7 @@ class Usaha extends \yii\db\ActiveRecord
     public function getOmsets()
     {
         return $this->hasMany(Omset::className(), ['usaha_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getKategori()
-    {
-        return $this->hasOne(Kategori::className(), ['id' => 'kategori_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProgram()
-    {
-        return $this->hasOne(Program::className(), ['id' => 'program_id']);
-    }
+    }   
 
     /**
      * @return \yii\db\ActiveQuery
@@ -100,5 +97,29 @@ class Usaha extends \yii\db\ActiveRecord
     public function getPemilik()
     {
         return $this->hasOne(Pemilik::className(), ['id' => 'pemilik_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBidang()
+    {
+        return $this->hasOne(Bidang::className(), ['id' => 'bidang_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIzin()
+    {
+        return $this->hasOne(Izin::className(), ['id' => 'izin_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMentor()
+    {
+        return $this->hasOne(Mentor::className(), ['id' => 'mentor_id']);
     }
 }

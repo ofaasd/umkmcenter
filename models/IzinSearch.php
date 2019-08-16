@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Program;
+use app\models\Izin;
 
 /**
- * ProgramSearch represents the model behind the search form of `app\models\Program`.
+ * IzinSearch represents the model behind the search form of `app\models\Izin`.
  */
-class ProgramSearch extends Program
+class IzinSearch extends Izin
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class ProgramSearch extends Program
     public function rules()
     {
         return [
-            [['id', 'tahun_acara'], 'integer'],
-            [['nama'], 'safe'],
+            [['id'], 'integer'],
+            [['akte_notaris', 'badan_hukum', 'siup', 'npwp', 'tdp', 'lain'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class ProgramSearch extends Program
      */
     public function search($params)
     {
-        $query = Program::find();
+        $query = Izin::find();
 
         // add conditions that should always apply here
 
@@ -59,10 +59,14 @@ class ProgramSearch extends Program
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tahun_acara' => $this->tahun_acara,
         ]);
 
-        $query->andFilterWhere(['like', 'nama', $this->nama]);
+        $query->andFilterWhere(['like', 'akte_notaris', $this->akte_notaris])
+            ->andFilterWhere(['like', 'badan_hukum', $this->badan_hukum])
+            ->andFilterWhere(['like', 'siup', $this->siup])
+            ->andFilterWhere(['like', 'npwp', $this->npwp])
+            ->andFilterWhere(['like', 'tdp', $this->tdp])
+            ->andFilterWhere(['like', 'lain', $this->lain]);
 
         return $dataProvider;
     }

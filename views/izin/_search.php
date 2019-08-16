@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ProgramSearch */
+/* @var $model app\models\IzinSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="program-search">
+<div class="izin-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,9 +17,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'nama') ?>
+    <?= $form->field($model, 'akte_notaris') ?>
 
-    <?= $form->field($model, 'tahun_acara') ?>
+    <?= $form->field($model, 'badan_hukum') ?>
+
+    <?= $form->field($model, 'siup') ?>
+
+    <?= $form->field($model, 'npwp') ?>
+
+    <?php // echo $form->field($model, 'tdp') ?>
+
+    <?php // echo $form->field($model, 'lain') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

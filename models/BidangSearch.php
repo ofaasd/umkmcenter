@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Program;
+use app\models\Bidang;
 
 /**
- * ProgramSearch represents the model behind the search form of `app\models\Program`.
+ * BidangSearch represents the model behind the search form of `app\models\Bidang`.
  */
-class ProgramSearch extends Program
+class BidangSearch extends Bidang
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class ProgramSearch extends Program
     public function rules()
     {
         return [
-            [['id', 'tahun_acara'], 'integer'],
+            [['id'], 'integer'],
             [['nama'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class ProgramSearch extends Program
      */
     public function search($params)
     {
-        $query = Program::find();
+        $query = Bidang::find();
 
         // add conditions that should always apply here
 
@@ -59,7 +59,6 @@ class ProgramSearch extends Program
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tahun_acara' => $this->tahun_acara,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama]);

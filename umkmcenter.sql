@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2019 at 03:34 AM
+-- Generation Time: Aug 16, 2019 at 07:30 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -25,6 +25,58 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bidang`
+--
+
+CREATE TABLE `bidang` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bidang`
+--
+
+INSERT INTO `bidang` (`id`, `nama`) VALUES
+(1, 'Financial Technology, Budidaya Perikanan '),
+(2, 'Teknologi Informasi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `izin`
+--
+
+CREATE TABLE `izin` (
+  `id` int(11) NOT NULL,
+  `akte_notaris` varchar(100) NOT NULL,
+  `badan_hukum` varchar(100) NOT NULL,
+  `siup` varchar(50) NOT NULL,
+  `npwp` varchar(50) NOT NULL,
+  `tdp` varchar(50) NOT NULL,
+  `lain` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `izin`
+--
+
+INSERT INTO `izin` (`id`, `akte_notaris`, `badan_hukum`, `siup`, `npwp`, `tdp`, `lain`) VALUES
+(2, '', '', '', '', '', ''),
+(3, '', '', '', '', '', ''),
+(4, '', '', '', '', '', ''),
+(5, '', '', '', '', '', ''),
+(9, 'Akta nomor 2, 13 Maret 2018 ', 'PT inFishta Digital Indonesia ', 'SIUP No 0549/10-27/PK/V/2018 ', 'Ada ', 'TDP No 10.27.1.46.06880 ', '-'),
+(10, 'Akta nomor 2, 13 Maret 2018 ', 'PT inFishta Digital Indonesia ', 'SIUP No 0549/10-27/PK/V/2018 ', 'Ada ', 'TDP No 10.27.1.46.06880 ', '-'),
+(11, 'Akta nomor 2, 13 Maret 2018 ', 'PT inFishta Digital Indonesia ', 'SIUP No 0549/10-27/PK/V/2018 ', 'Ada ', 'TDP No 10.27.1.46.06880 ', '-'),
+(12, 'Akta nomor 2, 13 Maret 2018 ', 'PT inFishta Digital Indonesia ', 'SIUP No 0549/10-27/PK/V/2018 ', 'Ada ', 'TDP No 10.27.1.46.06880 ', '-'),
+(13, 'Akta nomor 2, 13 Maret 2018 ', 'PT inFishta Digital Indonesia ', 'SIUP No 0549/10-27/PK/V/2018 ', 'Ada ', 'TDP No 10.27.1.46.06880 ', '-'),
+(14, 'Akta nomor 2, 13 Maret 2018 ', 'PT inFishta Digital Indonesia ', 'SIUP No 0549/10-27/PK/V/2018 ', 'Ada ', 'TDP No 10.27.1.46.06880 ', '-'),
+(15, 'Akta nomor 2, 13 Maret 2018 ', 'PT inFishta Digital Indonesia ', 'SIUP No 0549/10-27/PK/V/2018 ', 'Ada ', 'TDP No 10.27.1.46.06880 ', 'lain');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kategori`
 --
 
@@ -32,6 +84,24 @@ CREATE TABLE `kategori` (
   `id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mentor`
+--
+
+CREATE TABLE `mentor` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mentor`
+--
+
+INSERT INTO `mentor` (`id`, `nama`) VALUES
+(1, 'Randy Rahman Hussen');
 
 -- --------------------------------------------------------
 
@@ -61,6 +131,20 @@ CREATE TABLE `pemilik` (
   `status` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pemilik`
+--
+
+INSERT INTO `pemilik` (`id`, `nama`, `alamat`, `notelp`, `status`) VALUES
+(1, '', '', '', 0),
+(2, '', '', '', 0),
+(3, '', '', '', 0),
+(4, 'Ferry Alif Purnama Sugandhi ', 'asdasd', '087733500586 ', 0),
+(5, 'Ferry Alif Purnama Sugandhi ', 'asdasd', '087733500586 ', 0),
+(6, 'Ferry Alif Purnama Sugandhi ', 'asdasd', '087733500586 ', 0),
+(7, 'Ferry Alif Purnama Sugandhi ', 'asdasd', '087733500586 ', 0),
+(8, 'Ferry Alif Purnama Sugandhi s', 'Jl Bungur 2 nomor 45, Pondok Cina, Depok ', '087733500586 ', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -70,7 +154,18 @@ CREATE TABLE `pemilik` (
 CREATE TABLE `program` (
   `id` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `status` int(11) NOT NULL
+  `tahun_acara` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `programusaha`
+--
+
+CREATE TABLE `programusaha` (
+  `program_id` int(11) NOT NULL,
+  `usaha_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -81,16 +176,26 @@ CREATE TABLE `program` (
 
 CREATE TABLE `usaha` (
   `id` int(11) NOT NULL,
-  `program_id` int(11) NOT NULL,
-  `kategori_id` int(11) NOT NULL,
   `pemilik_id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `tahun_berdiri` int(11) NOT NULL,
-  `alamat` text NOT NULL,
+  `bidang_id` int(11) NOT NULL,
+  `izin_id` int(11) NOT NULL,
+  `mentor_id` int(11) NOT NULL,
+  `nama_usaha` varchar(100) NOT NULL,
+  `tahun_berdiri` varchar(30) NOT NULL,
+  `alamat_usaha` text NOT NULL,
   `notelp` varchar(20) NOT NULL,
   `email` varchar(120) NOT NULL,
-  `website` varchar(120) NOT NULL
+  `website` varchar(120) NOT NULL,
+  `kredit_bank` int(11) NOT NULL,
+  `tenaga_kerja` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `usaha`
+--
+
+INSERT INTO `usaha` (`id`, `pemilik_id`, `bidang_id`, `izin_id`, `mentor_id`, `nama_usaha`, `tahun_berdiri`, `alamat_usaha`, `notelp`, `email`, `website`, `kredit_bank`, `tenaga_kerja`) VALUES
+(6, 8, 1, 15, 1, 'PT inFishta Digital Indonesia 2', 'Oktober 2017', 'Gedung ILRC lantai 2, Universitas Indonesia, Depok ', '087733500586 ', 'infishta@gmail.com', 'infishta.com', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -131,9 +236,27 @@ INSERT INTO `users` (`id`, `picext`, `firstname`, `lastname`, `email`, `password
 --
 
 --
+-- Indexes for table `bidang`
+--
+ALTER TABLE `bidang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `izin`
+--
+ALTER TABLE `izin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mentor`
+--
+ALTER TABLE `mentor`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -156,13 +279,20 @@ ALTER TABLE `program`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `programusaha`
+--
+ALTER TABLE `programusaha`
+  ADD PRIMARY KEY (`program_id`,`usaha_id`);
+
+--
 -- Indexes for table `usaha`
 --
 ALTER TABLE `usaha`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `program_id` (`program_id`),
-  ADD KEY `kategori_id` (`kategori_id`),
-  ADD KEY `pemilik_id` (`pemilik_id`);
+  ADD KEY `pemilik_id` (`pemilik_id`),
+  ADD KEY `izin_id` (`izin_id`),
+  ADD KEY `bidang_id` (`bidang_id`),
+  ADD KEY `mentor_id` (`mentor_id`);
 
 --
 -- Indexes for table `users`
@@ -176,10 +306,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `bidang`
+--
+ALTER TABLE `bidang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `izin`
+--
+ALTER TABLE `izin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mentor`
+--
+ALTER TABLE `mentor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `omset`
@@ -191,7 +339,7 @@ ALTER TABLE `omset`
 -- AUTO_INCREMENT for table `pemilik`
 --
 ALTER TABLE `pemilik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -203,7 +351,7 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `usaha`
 --
 ALTER TABLE `usaha`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -225,9 +373,10 @@ ALTER TABLE `omset`
 -- Constraints for table `usaha`
 --
 ALTER TABLE `usaha`
-  ADD CONSTRAINT `usaha_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `usaha_ibfk_2` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `usaha_ibfk_3` FOREIGN KEY (`pemilik_id`) REFERENCES `pemilik` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `usaha_ibfk_3` FOREIGN KEY (`pemilik_id`) REFERENCES `pemilik` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usaha_ibfk_4` FOREIGN KEY (`bidang_id`) REFERENCES `bidang` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usaha_ibfk_5` FOREIGN KEY (`izin_id`) REFERENCES `izin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usaha_ibfk_6` FOREIGN KEY (`mentor_id`) REFERENCES `mentor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

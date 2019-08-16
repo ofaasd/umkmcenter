@@ -5,22 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "program".
+ * This is the model class for table "bidang".
  *
  * @property int $id
  * @property string $nama
- * @property int $tahun_acara
- *
- * @property Usaha[] $usahas
  */
-class Program extends \yii\db\ActiveRecord
+class Bidang extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'program';
+        return 'bidang';
     }
 
     /**
@@ -29,8 +26,7 @@ class Program extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'tahun_acara'], 'required'],
-            [['tahun_acara'], 'integer'],
+            [['nama'], 'required'],
             [['nama'], 'string', 'max' => 100],
         ];
     }
@@ -43,15 +39,6 @@ class Program extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nama' => 'Nama',
-            'tahun_acara' => 'Tahun Acara',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsahas()
-    {
-        return $this->hasMany(Usaha::className(), ['program_id' => 'id']);
     }
 }

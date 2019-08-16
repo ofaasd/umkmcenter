@@ -4,19 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Usaha */
+/* @var $model app\models\Bidang */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Usahas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Bidangs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="usaha-view">
+<div class="bidang-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Create More', ['create'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -30,18 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'pemilik_id',
-            'bidang_id',
-            'izin_id',
-            'mentor_id',
-            'nama_usaha',
-            'tahun_berdiri',
-            'alamat_usaha:ntext',
-            'notelp',
-            'email:email',
-            'website',
-            'kredit_bank',
-            'tenaga_kerja',
+            'nama',
         ],
     ]) ?>
 

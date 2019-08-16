@@ -17,8 +17,8 @@ class UsahaSearch extends Usaha
     public function rules()
     {
         return [
-            [['id', 'program_id', 'kategori_id', 'pemilik_id', 'tahun_berdiri'], 'integer'],
-            [['nama', 'alamat', 'notelp', 'email', 'website'], 'safe'],
+            [['id', 'pemilik_id', 'bidang_id', 'izin_id', 'mentor_id', 'kredit_bank', 'tenaga_kerja'], 'integer'],
+            [['nama_usaha', 'tahun_berdiri', 'alamat_usaha', 'notelp', 'email', 'website'], 'safe'],
         ];
     }
 
@@ -59,14 +59,17 @@ class UsahaSearch extends Usaha
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'program_id' => $this->program_id,
-            'kategori_id' => $this->kategori_id,
             'pemilik_id' => $this->pemilik_id,
-            'tahun_berdiri' => $this->tahun_berdiri,
+            'bidang_id' => $this->bidang_id,
+            'izin_id' => $this->izin_id,
+            'mentor_id' => $this->mentor_id,
+            'kredit_bank' => $this->kredit_bank,
+            'tenaga_kerja' => $this->tenaga_kerja,
         ]);
 
-        $query->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'alamat', $this->alamat])
+        $query->andFilterWhere(['like', 'nama_usaha', $this->nama_usaha])
+            ->andFilterWhere(['like', 'tahun_berdiri', $this->tahun_berdiri])
+            ->andFilterWhere(['like', 'alamat_usaha', $this->alamat_usaha])
             ->andFilterWhere(['like', 'notelp', $this->notelp])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'website', $this->website]);

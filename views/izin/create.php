@@ -3,19 +3,18 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Program */
+/* @var $model app\models\Izin */
 
-$this->title = 'Create Program';
-$this->params['breadcrumbs'][] = ['label' => 'Programs', 'url' => ['index']];
+$this->title = 'Create Izin';
+$this->params['breadcrumbs'][] = ['label' => 'Izins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="program-create">
+<div class="izin-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'usaha' => $usaha,
     ]) ?>
 
 </div>

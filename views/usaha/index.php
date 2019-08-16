@@ -26,16 +26,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'program_id',
-            'kategori_id',
-            'pemilik_id',
-            'nama',
-            //'tahun_berdiri',
-            //'alamat:ntext',
+            //'id',
+            //'pemilik_id',
+            //'bidang_id',
+            //'izin_id',
+            [
+                'header'=>'Nama Mentor',
+                'value'=>'mentor.nama',
+            ],
+            
+            'nama_usaha',
+            'tahun_berdiri',
+            'alamat_usaha:ntext',
             //'notelp',
-            //'email:email',
-            //'website',
+            'email:email',
+            'website',
+            //'kredit_bank',
+            //'tenaga_kerja',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

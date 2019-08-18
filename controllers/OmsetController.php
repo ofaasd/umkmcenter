@@ -8,6 +8,8 @@ use app\models\OmsetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Usaha;
+use yii\helpers\ArrayHelper;
 
 /**
  * OmsetController implements the CRUD actions for Omset model.
@@ -65,13 +67,19 @@ class OmsetController extends Controller
     public function actionCreate()
     {
         $model = new Omset();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $usaha = (new \yii\db\Query())
+                 ->select(['id','nama_usaha'])
+                 ->from('usaha')
+                 ->all();
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->bulan = $model->bulan . " " . Yii::$app->request->post("tahun");
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'usaha'=> ArrayHelper::map($usaha,'id','nama_usaha'),
         ]);
     }
 
@@ -85,13 +93,22 @@ class OmsetController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $usaha = (new \yii\db\Query())
+                 ->select(['id','nama_usaha'])
+                 ->from('usaha')
+                 ->all();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->bulan = $model->bulan . " " . Yii::$app->request->post("tahun");
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $bulan = explode(" ",$model->bulan);
+        $model->bulan = $bulan[0];
+        $tahun = $bulan[1];
         return $this->render('update', [
             'model' => $model,
+            'usaha'=> ArrayHelper::map($usaha,'id','nama_usaha'),
+            'tahun' => $tahun,
         ]);
     }
 

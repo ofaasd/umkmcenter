@@ -30,7 +30,7 @@ class Program extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'tahun_acara'], 'required'],
-            [['tahun_acara'], 'integer'],
+            [['tahun_acara'], 'string', 'max'=>60],
             [['nama'], 'string', 'max' => 100],
         ];
     }

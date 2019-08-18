@@ -21,25 +21,27 @@ use yii\bootstrap4\Modal;
 
     </div>
     <?php
+    if(isset($usaha)){
+        Modal::begin([
+    	    'title' => 'Tambah Peserta Pelatihan',
+    	    'toggleButton' => ['label' => 'Tambah Peserta', 'class'=>'btn btn-info','style'=>'margin:10px 0;'],
 
-    Modal::begin([
-	    'title' => 'Tambah Peserta Pelatihan',
-	    'toggleButton' => ['label' => 'Tambah Peserta', 'class'=>'btn btn-info'],
-	]);
-    echo "<table width='100%' cellpadding=5>
-    		<tr><td>Nama Usaha</td><td>Action</td></tr>";
-   	foreach($usaha as $row){
-   		echo "<tr><td>" . $row['nama_usaha'] . "</td><td class='baris-". $row['id'] . "'>";
-   		echo ($row['jumlah']==0)?"<a href='#' class='btn btn-info' onclick='add(" . $row['id'] . ",\"" . $row['nama_usaha'] . "\")'>Tambah</a>":"";
-   		echo "</td></tr>";
-   	}
-   	echo "</table>";
-	//echo 'Say hello...';
+    	]);
+        echo "<table width='100%' cellpadding=5>
+        		<tr><td>Nama Usaha</td><td>Action</td></tr>";
+       	foreach($usaha as $row){
+       		echo "<tr><td>" . $row['nama_usaha'] . "</td><td class='baris-". $row['id'] . "'>";
+       		echo ($row['jumlah']==0)?"<a href='#' class='btn btn-info' onclick='add(" . $row['id'] . ",\"" . $row['nama_usaha'] . "\")'>Tambah</a>":"";
+       		echo "</td></tr>";
+       	}
+       	echo "</table>";
+    	//echo 'Say hello...';
 
-	Modal::end();
+    	Modal::end();
+    }
     ?>
-    <br />
-    <div class="form-group">
+    
+    <div class="form-group" style="display:block; margin:10px 0;">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
@@ -48,7 +50,11 @@ use yii\bootstrap4\Modal;
 </div>
 <script>
 	function add(id,nama){
-		$("#peserta").append("<span class=\"badge badge-primary\">"+nama+" <span onclick='del("+id+")'>x</span></span><input type='hidden' name='peserta[]' value='"+id+"'>");
+		$("#peserta").append("<span class=\"badge badge-info peserta-"+id+"\">"+nama+" <span onclick='del("+id+",\""+nama+"\")'>x</span></span><input type='hidden' class=\"peserta-"+id+"\" name='peserta[]' value='"+id+"'>");
 		$(".baris-"+id).html("<span class='btn btn-success'>Ditambahkan</span>");
 	}
+  function del(id,nama){
+    $(".peserta-"+id).remove();
+    $(".baris-"+id).html("<a href='#' class='btn btn-info' onclick='add("+id+",\""+nama+"\")'>Tambah</a>");
+  }
 </script>

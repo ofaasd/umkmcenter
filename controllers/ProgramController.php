@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Program;
+use app\models\Programusaha;
 use app\models\ProgramSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -73,7 +74,24 @@ class ProgramController extends Controller
         $model = new Program();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            
+            $peserta = array();
+            $peserta = Yii::$app->request->post("peserta");
+            if(empty($peserta)){
+                return $this->redirect(['view', 'id' => $model->id]);   
+            }else{
+                $hasil = 0;
+                foreach($peserta as $value){
+                    $programusaha = new Programusaha();
+                    $programusaha->program_id = $model->id;
+                    $programusaha->usaha_id = $value;
+                    if($programusaha->save()){
+                        $hasil ++;
+                    }
+                }
+                if($hasil>0)
+                    return $this->redirect(['index']);   
+            }
         }
 
         return $this->render('create', [
@@ -94,7 +112,7 @@ class ProgramController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

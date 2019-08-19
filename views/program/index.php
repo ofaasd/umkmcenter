@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{add}{update}{delete}',
                 'buttons'=>[
                     'add' => function ($url, $model, $key) {
-                        return Html::a(FAS::icon('user-plus'), ['add', 'id'=>$model->id],['title'=>'Copy']);
+                        return Html::a(FAS::icon('user-plus'), ['add', 'id'=>$model->id],['title'=>'Tambah Peserta']);
                     },
                 ],
             ],

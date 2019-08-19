@@ -149,4 +149,47 @@ class ProgramController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+    public function actionAdd($id){
+        $model = $this->findModel($id);
+        $query = new Query;
+        $usaha = $query->select("*,(select count(*) from programusaha where program_id=". $id." and usaha_id = usaha.id) as jumlah")->from("usaha,programusaha")->where("program_id = " . $id)->all();
+
+        return $this->render('add',[
+            'model' => $model,
+            'usaha' => $usaha,
+            'id' => $id,
+        ]);
+    }
+    public function actionAdddb(){
+        if(Yii::$app->request->isAjax){
+            $usaha_id = Yii::$app->request->post("usaha_id");
+            $program_id = Yii::$app->request->post("program_id");
+            $hasil = Yii::$app->db->createCommand("insert into programusaha (usaha_id,program_id) values(".$usaha_id.",".$program_id.")");
+            if($hasil->execute()){
+                return "success";
+            }else{
+                echo  "error";
+                echo $usaha_id . " " . $program_id;
+            }
+        }else{
+            return "error bukan ajax";
+        }
+    }
+    public function actionDeldb(){
+        if(Yii::$app->request->isAjax){
+            $usaha_id = Yii::$app->request->post("usaha_id");
+            $program_id = Yii::$app->request->post("program_id");
+            $hasil = Yii::$app->db->createCommand("delete from programusaha where usaha_id=".$usaha_id." and program_id=".$program_id);
+            if($hasil->execute()){
+                return "success";
+            }else{
+                echo  "error";
+                echo $usaha_id . " " . $program_id;
+            }
+        }else{
+            return "error bukan ajax";
+        }
+    }
 }

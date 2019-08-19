@@ -84,6 +84,25 @@ class OmsetController extends Controller
         ]);
     }
 
+    public function actionCreateomset($id){
+        $model = new Omset();
+        $usaha = (new \yii\db\Query())
+                 ->select(['id','nama_usaha'])
+                 ->from('usaha')
+                 ->where("id=" .$id)
+                 ->all();
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->bulan = $model->bulan . " " . Yii::$app->request->post("tahun");
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+            'usaha'=> ArrayHelper::map($usaha,'id','nama_usaha'),
+        ]);
+    }
+
     /**
      * Updates an existing Omset model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -139,7 +158,6 @@ class OmsetController extends Controller
         if (($model = Omset::findOne($id)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

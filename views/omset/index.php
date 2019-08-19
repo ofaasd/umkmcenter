@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -37,9 +38,9 @@ $bulan = array(1=>"Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","N
         </thead>
         <tbody>
             <?php foreach($model as $row){
-                echo "<tr><td style='font-size:9pt;'>" . $row['nama_usaha'] . "</td>";
-                foreach($bulan as $value){
-                    echo "<td contenteditable='true'>0</td>";
+                echo "<tr><td style='font-size:9pt;'> <a href='" . Url::to(['omset/createomset',"id"=>$row['id']]) . "'>" . $row['nama_usaha'] . "</a></td>";
+                foreach($bulan as $key=>$value){
+                    echo "<td><a href='#' onclick='add_omset(" . $row['id'] .",". $key.")'>0</a></td>";
                 }
                 echo "</tr>";
             }?>
@@ -48,3 +49,18 @@ $bulan = array(1=>"Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","N
 
 
 </div>
+
+<script>
+
+    function add_omset(usaha_id,bulan){
+        $.ajax({
+            url : "<?= Url::to(['omset/addomset']);?>",
+            method : "POST",
+            data : "usaha_id="+id+"&program_id=<?= $id ?>",
+            success:function(data){
+                $("#peserta").append("<span class=\"badge badge-info peserta-"+id+"\">"+nama+" <span onclick='del("+id+",\""+nama+"\")'>x</span></span><input type='hidden' class=\"peserta-"+id+"\" name='peserta[]' value='"+id+"'>");
+                $(".baris-"+id).html("<span class='btn btn-success'>Ditambahkan</span>");
+            },
+        });
+    }
+</script>

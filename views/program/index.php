@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use rmrevin\yii\fontawesome\FAS;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProgramSearch */
@@ -12,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="program-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?> Pelatihan</h1>
 
     <p>
         <?= Html::a('Create Program', ['create'], ['class' => 'btn btn-success']) ?>
@@ -30,7 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'tahun_acara',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{add}{update}{delete}',
+                'buttons'=>[
+                    'add' => function ($url, $model, $key) {
+                        return Html::a(FAS::icon('user-plus'), ['add', 'id'=>$model->id],['title'=>'Copy']);
+                    },
+                ],
+            ],
         ],
     ]); ?>
 

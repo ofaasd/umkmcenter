@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Usaha;
+use app\models\UsahaSearch;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -37,12 +38,12 @@ class OmsetController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new OmsetSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = Usaha::find()->all();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $model,
+            //'dataProvider' => $dataProvider,
         ]);
     }
 

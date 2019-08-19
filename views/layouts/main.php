@@ -50,6 +50,7 @@ AppAsset::register($this);
             <li><a href="<?= Url::toRoute(['bidang/index']);?>"><?= FAS::icon('tags');?> Bidang Usaha</a></li>
             <li><a href="<?= Url::toRoute(['usaha/index']);?>"><?= FAS::icon('hotel');?> Usaha</a></li>
             <li><a href="<?= Url::toRoute(['omset/index']);?>"><?= FAS::icon('money-check-alt');?> Omset</a></li>
+            <li><a href="<?= Url::toRoute(['grafik/index']);?>"><?= FAS::icon('chart-line');?> Grafik</a></li>
 
 
         </div>
@@ -62,7 +63,7 @@ AppAsset::register($this);
           <div class="container-fluid">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><?= FAS::icon('bars'); ?></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><span>UMKM Center </span><strong class="text-primary">Dashboard</strong></div></a></div>
+                  <div class="brand-text d-none d-md-inline-block"><span></span> <strong class="text-primary">Smart-Incubator UMKM</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Log out-->
                 <form action="<?= Url::toRoute(['site/logout']);?>" method="post">

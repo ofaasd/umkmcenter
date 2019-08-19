@@ -27,13 +27,13 @@ class AppAsset extends AssetBundle
         'asset/css/jquery.mCustomScrollbar.css',
     ];
     public $js = [
-        'asset/js/popper.min.js',
+        // /'asset/js/popper.min.js',
         'asset/js/grasp_mobile_progress_circle-1.0.0.min.js',
         'asset/js/jquery.cookie.js',
         'asset/js/jquery.validate.min.js',
         'asset/js/jquery.mCustomScrollbar.concat.min.js',
-        'asset/js/charts-home.js',
-        'asset/js/js/front.js',
+        //'asset/js/charts-home.js',
+        //'asset/js/front.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

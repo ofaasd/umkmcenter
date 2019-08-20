@@ -73,11 +73,10 @@ class OmsetController extends Controller
                  ->from('usaha')
                  ->all();
         if ($model->load(Yii::$app->request->post()) ) {
-            $model->bulan = $model->bulan . " " . Yii::$app->request->post("tahun");
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        
         return $this->render('create', [
             'model' => $model,
             'usaha'=> ArrayHelper::map($usaha,'id','nama_usaha'),
@@ -92,7 +91,6 @@ class OmsetController extends Controller
                  ->where("id=" .$id)
                  ->all();
         if ($model->load(Yii::$app->request->post()) ) {
-            $model->bulan = $model->bulan . " " . Yii::$app->request->post("tahun");
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -100,6 +98,29 @@ class OmsetController extends Controller
         return $this->render('create', [
             'model' => $model,
             'usaha'=> ArrayHelper::map($usaha,'id','nama_usaha'),
+        ]);
+    }
+
+    public function actionAddomset(){
+        $model = new Omset();
+        $id = Yii::$app->request->get("usaha_id");
+        $bulan = array();
+        $bulan[0] = Yii::$app->request->get("bulan");
+        $bulan[1] = Yii::$app->request->get("tahun");
+        $usaha = (new \yii\db\Query())
+                 ->select(['id','nama_usaha'])
+                 ->from('usaha')
+                 ->where("id=" .$id)
+                 ->all();
+         if ($model->load(Yii::$app->request->post()) ) {
+            $model->save();
+            return $this->redirect(['index', 'succ' => 1]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+            'usaha'=> ArrayHelper::map($usaha,'id','nama_usaha'),
+            'bulan' => $bulan,
         ]);
     }
 
@@ -122,13 +143,10 @@ class OmsetController extends Controller
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $bulan = explode(" ",$model->bulan);
-        $model->bulan = $bulan[0];
-        $tahun = $bulan[1];
         return $this->render('update', [
             'model' => $model,
             'usaha'=> ArrayHelper::map($usaha,'id','nama_usaha'),
-            'tahun' => $tahun,
+            //'tahun' => $tahun,
         ]);
     }
 

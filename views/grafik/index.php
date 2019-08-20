@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\helpers\Helpers;
 use yii\grid\GridView;
 use dosamigos\chartjs\ChartJs;
 $bulan = array(1=>"Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember");
@@ -12,9 +13,9 @@ $this->title = 'Usahas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grafik-index">
-	<form>
+	<form method="POST" action="">
 		<div class="form-group">
-			<select class="form-control">
+			<select class="form-control" name="usaha_id">
 				<option value="0"> -- Pilih Nama Usaha -- </option> 
 				<?php
 					foreach($usaha as $row){
@@ -26,16 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="form-group">
 			<div class="form-row">
 				<div class="col">
-					<select class="form-control">
-						<option value="0">Bulan</option>
-						<?php
-							foreach($bulan as $key=>$value){
-								echo "<option value='" . $key . "'>" . $value . "</option>";
-							}
-						?>
-					</select>
-				</div>
-				<div class="col">
 					<input type="number" name="tahun" class="form-control" value="<?= (isset($tahun))?$tahun:date('Y'); ?>">
 				</div>
 			</div>
@@ -46,29 +37,40 @@ $this->params['breadcrumbs'][] = $this->title;
 	</form>
 	<div class="row">
 		<div class="col-md-12">
-			<?= ChartJs::widget([
-			    'type' => 'line',
-			    'options' => [
-			        'height' => 150,
-			        'width' => 400
-			    ],
-			    'data' => [
-			        'labels' => ["January", "February", "March", "April", "May", "June", "July"],
-			        'datasets' => [
-			            [
-			                'label' => "My First dataset", //judul grafik
-			                'backgroundColor' => "rgba(179,181,198,0.2)",
-			                'pointRadius'=>6,
-			                'borderColor' => "rgba(179,181,198,1)",
-			                'pointBackgroundColor' => "rgba(179,181,198,1)",
-			                'pointBorderColor' => "#fff",
-			                'pointHoverBackgroundColor' => "#fff",
-			                'pointHoverBorderColor' => "rgba(179,181,198,1)",
-			                'data' => [65, 59, 90, 81, 56, 55, 40]
-			            ],
-			        ]
-			    ]
-			]);
+			<?php
+			if(Yii::$app->request->post()){
+				$hasil = [];
+				foreach($bulan as $key=>$value){
+					$hasil[$key-1] = Helpers::getOmset($usaha_id,$key,$tahun);
+				}
+				//var_dump([10,10,10,10,10,10,10,10,10,10,10,10]);
+			?>
+				<?= ChartJs::widget([
+				    'type' => 'line',
+				    'options' => [
+				        'height' => 150,
+				        'width' => 400
+				    ],
+				    'data' => [
+				        'labels' => ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember"],
+				        'datasets' => [
+				            [
+				                'label' => "My First dataset", //judul grafik
+				                'backgroundColor' => "rgba(179,181,198,0.2)",
+				                'pointRadius'=>6,
+				                'borderColor' => "rgba(179,181,198,1)",
+				                'pointBackgroundColor' => "rgba(179,181,198,1)",
+				                'pointBorderColor' => "#fff",
+				                'pointHoverBackgroundColor' => "#fff",
+				                'pointHoverBorderColor' => "rgba(179,181,198,1)",
+				                'data' => $hasil
+				            ],
+				        ]
+				    ]
+				]);
+				?>
+			<?php
+			}
 			?>
 		</div>
 	</div>

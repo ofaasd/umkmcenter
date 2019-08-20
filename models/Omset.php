@@ -31,8 +31,8 @@ class Omset extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usaha_id', 'omset', 'bulan'], 'required'],
-            [['usaha_id', 'omset', 'penjualan'], 'integer'],
+            [['usaha_id', 'omset', 'bulan','tahun'], 'required'],
+            [['usaha_id', 'omset', 'penjualan','tahun'], 'integer'],
             [['bulan'], 'safe'],
             [['usaha_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usaha::className(), 'targetAttribute' => ['usaha_id' => 'id']],
         ];
@@ -49,6 +49,7 @@ class Omset extends \yii\db\ActiveRecord
             'omset' => 'Omset',
             'penjualan' => 'Penjualan',
             'bulan' => 'Bulan',
+            'tahun' => 'Tahun',
         ];
     }
 

@@ -66,11 +66,8 @@ AppAsset::register($this);
                   <div class="brand-text d-none d-md-inline-block"><span></span> <strong class="text-primary">Smart-Incubator UMKM</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Log out-->
-                <form action="<?= Url::toRoute(['site/logout']);?>" method="post">
-                  <li class="nav-item"><a href="" class="nav-link logout"> 
-                    <button type="submit" class="d-none d-sm-inline-block" style="background:none;border:0;color:#fff;">Logout</button><i class="fa fa-sign-out"></i></a>
-                  </li>
-                </form>
+                
+                <?= Html::a('logout', Url::to(['/user/logout']), ['data-method' => 'POST']) ?>
               </ul>
             </div>
           </div>

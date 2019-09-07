@@ -45,10 +45,10 @@ AppAsset::register($this);
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
             <li><a href="<?= Url::toRoute(['site/index']);?>"><?= FAS::icon('home');?> Home</a></li>
             <!-- <li><a href="<?= Url::toRoute(['pemilik/index']);?>"><?= FAS::icon('user-tie');?> Pemilik</a></li> -->
-            <li><a href="<?= Url::toRoute(['program/index']);?>"><?= FAS::icon('layer-group');?>Daftar Pelatihan</a></li>
-            <li><a href="<?= Url::toRoute(['mentor/index']);?>"><?= FAS::icon('user-tie');?> Daftar Mentor</a></li>
+            <li><a href="<?= Url::toRoute(['program/index']);?>"><?= FAS::icon('layer-group');?>Data Pelatihan</a></li>
+            <li><a href="<?= Url::toRoute(['mentor/index']);?>"><?= FAS::icon('user-tie');?> Data Mentor</a></li>
             <li><a href="<?= Url::toRoute(['bidang/index']);?>"><?= FAS::icon('tags');?> Bidang Usaha</a></li>
-            <li><a href="<?= Url::toRoute(['usaha/index']);?>"><?= FAS::icon('hotel');?> Usaha</a></li>
+            <li><a href="<?= Url::toRoute(['usaha/index']);?>"><?= FAS::icon('hotel');?> Profil UMKM</a></li>
             <li><a href="<?= Url::toRoute(['omset/index']);?>"><?= FAS::icon('money-check-alt');?> Omset</a></li>
             <li><a href="<?= Url::toRoute(['grafik/index']);?>"><?= FAS::icon('chart-line');?> Grafik</a></li>
 

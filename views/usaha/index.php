@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UsahaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Usahas';
+$this->title = 'Data Profil UMKM';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usaha-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Usaha', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Daftar Baru', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'bidang_id',
             //'izin_id',
             [
-                'header'=>'Nama Mentor',
-                'value'=>'mentor.nama',
+                'header'=>'Nama pemilik',
+                'value'=>'pemilik.nama',
             ],
             
             'nama_usaha',

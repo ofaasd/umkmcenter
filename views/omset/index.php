@@ -9,7 +9,7 @@ use app\helpers\Helpers;
 /* @var $searchModel app\models\OmsetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Omsets';
+$this->title = 'Daftar Omset UMKM';
 $this->params['breadcrumbs'][] = $this->title;
 $bulan = array(1=>"Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nop","Des");
 ?>

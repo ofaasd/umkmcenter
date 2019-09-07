@@ -33,7 +33,7 @@ class Izin extends \yii\db\ActiveRecord
         return [
             [['akte_notaris', 'badan_hukum', 'siup', 'npwp', 'tdp', 'lain'], 'required'],
             [['akte_notaris', 'badan_hukum'], 'string', 'max' => 100],
-            [['siup', 'npwp', 'tdp'], 'string', 'max' => 50],
+            [['Siup', 'npwp', 'tdp'], 'string', 'max' => 50],
             [['lain'], 'string', 'max' => 80],
         ];
     }

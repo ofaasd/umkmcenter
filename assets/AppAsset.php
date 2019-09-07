@@ -33,11 +33,11 @@ class AppAsset extends AssetBundle
         'asset/js/jquery.validate.min.js',
         'asset/js/jquery.mCustomScrollbar.concat.min.js',
         //'asset/js/charts-home.js',
-        //'asset/js/front.js',
+        'asset/js/front.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset',
+        'yii\bootstrap4\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\CdnProAssetBundle',
         'dosamigos\chartjs\ChartJsAsset',
     ];

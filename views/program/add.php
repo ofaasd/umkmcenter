@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
     	]);
         echo "<table width='100%' cellpadding=5>
         		<tr><td>Nama Usaha</td><td>Action</td></tr>";
-       	foreach($usaha as $row){
+       	foreach($usaha_modal as $row){
        		echo "<tr><td>" . $row['nama_usaha'] . "</td><td class='baris-". $row['id'] . "'>";
        		echo ($row['jumlah']==0)?"<a href='#' class='btn btn-info' onclick='add(" . $row['id'] . ",\"" . $row['nama_usaha'] . "\")'>Tambah</a>":"";
        		echo "</td></tr>";

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Mentor */
 
-$this->title = 'Create Mentor';
+$this->title = 'Buat Mentor';
 $this->params['breadcrumbs'][] = ['label' => 'Mentors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

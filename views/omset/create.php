@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Omset */
 
-$this->title = 'Create Omset';
+$this->title = 'Buat Omset';
 $this->params['breadcrumbs'][] = ['label' => 'Omsets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

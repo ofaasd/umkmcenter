@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Mentor */
 
-$this->title = $model->id;
+$this->title = "Mentor Berhasil ditambahkan";
 $this->params['breadcrumbs'][] = ['label' => 'Mentors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

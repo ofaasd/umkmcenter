@@ -32,10 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'tahun_acara',
 
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{add}{update}{delete}',
+                'template' => '{add}{update}{delete}{addview}',
                 'buttons'=>[
                     'add' => function ($url, $model, $key) {
                         return Html::a(FAS::icon('user-plus'), ['add', 'id'=>$model->id],['title'=>'Tambah Peserta']);
+                    },
+                    'addview' => function ($url, $model, $key) {
+                        return Html::a(FAS::icon('user'), ['viewusaha', 'id'=>$model->id],['title'=>'Lihat Peserta']);
                     },
                 ],
             ],

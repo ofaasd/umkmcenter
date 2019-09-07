@@ -89,7 +89,7 @@ class UsahaController extends Controller
                 $model->pemilik_id = $pemilik->id;
                 $model->izin_id = $izin->id;
                 if($model->save(false)){
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index']);
                 }else{
                     return "error input usaha";
                 }
@@ -122,7 +122,7 @@ class UsahaController extends Controller
             $pemilik->save();
             $izin->save();
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

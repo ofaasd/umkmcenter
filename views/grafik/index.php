@@ -12,6 +12,7 @@ $bulan = array(1=>"Januari","Februari","Maret","April","Mei","Juni","Juli","Agus
 $this->title = 'Usahas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<h1>Grafik Index Omset Perusahaan</h1>
 <div class="grafik-index">
 	<form method="POST" action="">
 		<div class="form-group">
@@ -19,7 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
 				<option value="0"> -- Pilih Nama Usaha -- </option> 
 				<?php
 					foreach($usaha as $row){
-						echo "<option value='" . $row['id'] . "'>" . $row['nama_usaha'] . "</option>";
+						echo "<option value='" . $row['id'] . "' ";
+						if($row['id']==$usaha_id){
+							echo "selected";
+						}
+
+						echo ">" . $row['nama_usaha'] . "</option>";
 					}
 				?>
 			</select>

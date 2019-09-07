@@ -6,6 +6,7 @@ use app\models\Bidang;
 use app\models\Kategori;
 use app\models\Mentor;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usaha */
@@ -41,11 +42,12 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'alamat_usaha')->textarea(['rows' => 6]) ?>
     
-    <label>Bidang Usaha</label>
+    <label>Bidang Usaha</label> / <a href="<?= Url::toRoute(['bidang/create'])?>">Buat Bidang baru</a>
     <?php
         $bidang = ArrayHelper::map(Bidang::find()->all(),'id','nama');
         echo Html::activeDropDownList($model, 'bidang_id',$bidang,['class'=>'form-control']); 
     ?>
+
 
     <?= $form->field($model, 'notelp')->textInput(['maxlength' => true]) ?>
 

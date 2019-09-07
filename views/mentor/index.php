@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MentorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Mentors';
+$this->title = 'Data Mentor';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mentor-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Mentor', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Buat Mentor Baru', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -68,7 +68,7 @@ class ProgramController extends Controller
     public function actionCreate()
     {
         $query = new Query;
-        $query->select("*,(select count(*) from programusaha where usaha_id = usaha.id and programusaha.program_id = 1) as jumlah")
+        $query->select("*,(select count(*) from programusaha where usaha_id = usaha.id and programusaha.program_id = 0) as jumlah")
               ->from("usaha");
         $usaha = $query->all();
         $model = new Program();
@@ -78,7 +78,7 @@ class ProgramController extends Controller
             $peserta = array();
             $peserta = Yii::$app->request->post("peserta");
             if(empty($peserta)){
-                return $this->redirect(['view', 'id' => $model->id]);   
+                return $this->redirect(['index']);   
             }else{
                 $hasil = 0;
                 foreach($peserta as $value){
@@ -154,13 +154,33 @@ class ProgramController extends Controller
     public function actionAdd($id){
         $model = $this->findModel($id);
         $query = new Query;
-        $usaha = $query->select("*,(select count(*) from programusaha where program_id=". $id." and usaha_id = usaha.id) as jumlah")->from("usaha,programusaha")->where("program_id = " . $id)->all();
+        $usaha = $query->select("*,(select count(*) from programusaha where program_id=". $id." and usaha_id = usaha.id) as jumlah")->from("usaha,programusaha")->where("program_id = " . $id . " and programusaha.usaha_id=usaha.id")->all();
 
+        $query2 = new Query;
+        $query2->select("*,(select count(*) from programusaha where usaha_id = usaha.id and programusaha.program_id = '$id') as jumlah")
+              ->from("usaha");
+        $usaha_modal = $query2->all();
         return $this->render('add',[
             'model' => $model,
             'usaha' => $usaha,
+            'usaha_modal' => $usaha_modal,
             'id' => $id,
         ]);
+    }
+    public function actionViewusaha($id){
+        $model = $this->findModel($id);
+        $query = new Query; 
+        $usaha = $query->select("*")
+                        ->from("programusaha")
+                        ->innerJoin("usaha","usaha.id=usaha_id")
+                        ->innerJoin("pemilik","pemilik.id=pemilik_id")
+                        ->where("program_id = " . $id)->all();
+        $judul = $model->nama;
+        return $this->render('viewusaha',array(
+            'model'=>$model,
+            'usaha'=>$usaha,
+            'judul'=>$judul,
+        ));
     }
     public function actionAdddb(){
         if(Yii::$app->request->isAjax){

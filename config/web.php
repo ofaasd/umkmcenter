@@ -19,9 +19,12 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        // 'user' => [
+        //     'identityClass' => 'app\models\User',
+        //     'enableAutoLogin' => true,
+        // ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'class' => 'amnah\yii2\user\components\User',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -51,6 +54,12 @@ $config = [
             ],
         ],
         
+    ],
+    'modules' => [
+        'user' => [
+            'class' => 'amnah\yii2\user\Module',
+            // set custom module properties here ...
+        ],
     ],
     'params' => $params,
 ];

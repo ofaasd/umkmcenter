@@ -12,7 +12,7 @@ $this->title = 'My Yii Application';
 
         <p class="lead">Selamat Datang di Halaman Admin Smart UMKM Center</p>
 
-        <p><a class="btn btn-lg btn-success" href="<?= Url::toRoute(['usaha/index']); ?>">Lihat Daftar UMKM</a></p>
+        <p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['usaha/index']); ?>">Lihat Daftar UMKM</a></p>
     </div>
 
    <!--  <div class="body-content">

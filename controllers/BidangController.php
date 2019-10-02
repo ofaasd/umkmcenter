@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
+use yii\helpers\Url;
 
 /**
  * BidangController implements the CRUD actions for Bidang model.
@@ -21,7 +22,8 @@ class BidangController extends Controller
 
     public function init(){
         if (!empty(Yii::$app->user) && !Yii::$app->user->can("admin")) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
         }
     }
     public function behaviors()

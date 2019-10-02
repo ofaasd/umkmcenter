@@ -10,7 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;
-
+use yii\helpers\Url;
 
 /**
  * ProgramController implements the CRUD actions for Program model.
@@ -20,6 +20,12 @@ class ProgramController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function init(){
+        if (empty(Yii::$app->user->id)) {
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
+        }
+    }
     public function behaviors()
     {
         return [
@@ -73,8 +79,13 @@ class ProgramController extends Controller
         $usaha = $query->all();
         $model = new Program();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
+        if ($model->load(Yii::$app->request->post())) {
+             $wilayah = (new \yii\db\Query())
+                    ->select("wilayah_id")
+                    ->from('user')
+                    ->where("id = " . Yii::$app->user->id)->scalar();
+            $model->wilayah_id = $wilayah;
+            $model->save();
             $peserta = array();
             $peserta = Yii::$app->request->post("peserta");
             if(empty($peserta)){

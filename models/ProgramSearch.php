@@ -5,12 +5,14 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Program;
+use Yii;
 
 /**
  * ProgramSearch represents the model behind the search form of `app\models\Program`.
  */
 class ProgramSearch extends Program
 {
+    public $wilayah;
     /**
      * {@inheritdoc}
      */
@@ -55,7 +57,15 @@ class ProgramSearch extends Program
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        if(!empty(Yii::$app->user->id) && !Yii::$app->user->can("admin")){
+            $this->wilayah = (new \yii\db\Query())
+                    ->select("wilayah_id")
+                    ->from('user')
+                    ->where("id = " . Yii::$app->user->id)->scalar();
+            $query->andFilterWhere([
+                'wilayah_id'=>$this->wilayah,
+            ]);
+        }
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

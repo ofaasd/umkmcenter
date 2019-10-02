@@ -6,13 +6,19 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Url;
 /**
  * BidangController implements the CRUD actions for Bidang model.
  */
 class GrafikController extends Controller
 {
 	
+     public function init(){
+        if (!empty(Yii::$app->user) && !Yii::$app->user->can("admin")) {
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
+        }
+    }
 	
 	public function beforeAction($action) {
 		$this->enableCsrfValidation = false; 

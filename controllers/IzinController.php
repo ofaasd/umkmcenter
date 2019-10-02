@@ -8,7 +8,7 @@ use app\models\IzinSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Url;
 /**
  * IzinController implements the CRUD actions for Izin model.
  */
@@ -17,6 +17,12 @@ class IzinController extends Controller
     /**
      * {@inheritdoc}
      */
+     public function init(){
+        if (!empty(Yii::$app->user) && !Yii::$app->user->can("admin")) {
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
+        }
+    }
     public function behaviors()
     {
         return [

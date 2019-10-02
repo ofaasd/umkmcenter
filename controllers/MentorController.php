@@ -8,7 +8,7 @@ use app\models\MentorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Url;
 /**
  * MentorController implements the CRUD actions for Mentor model.
  */
@@ -17,6 +17,12 @@ class MentorController extends Controller
     /**
      * {@inheritdoc}
      */
+     public function init(){
+        if (empty(Yii::$app->user)) {
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
+        }
+    }
     public function behaviors()
     {
         return [
@@ -36,6 +42,7 @@ class MentorController extends Controller
     public function actionIndex()
     {
         $searchModel = new MentorSearch();
+        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -66,7 +73,14 @@ class MentorController extends Controller
     {
         $model = new Mentor();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $wilayah = (new \yii\db\Query())
+                    ->select("wilayah_id")
+                    ->from('user')
+                    ->where("id = " . Yii::$app->user->id)->scalar();
+            $model->wilayah_id = $wilayah;
+
+            $model->save();
             return $this->redirect(['index']);
         }
 

@@ -24,7 +24,7 @@ $config = [
         //     'enableAutoLogin' => true,
         // ],
         'user' => [
-            'class' => 'amnah\yii2\user\components\User',
+            'class' => 'app\modules\user\components\User',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -57,7 +57,8 @@ $config = [
     ],
     'modules' => [
         'user' => [
-            'class' => 'amnah\yii2\user\Module',
+            'class' => 'app\modules\user\Module',
+            'layout' => '@app/views/layouts/login',
             // set custom module properties here ...
         ],
     ],

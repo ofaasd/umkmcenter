@@ -15,6 +15,7 @@ use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * UsahaController implements the CRUD actions for Usaha model.
@@ -24,6 +25,12 @@ class UsahaController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function init(){
+        if (empty(Yii::$app->user->id)) {
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
+        }
+    }
     public function behaviors()
     {
         return [
@@ -88,6 +95,12 @@ class UsahaController extends Controller
                 $model->load(Yii::$app->request->post());
                 $model->pemilik_id = $pemilik->id;
                 $model->izin_id = $izin->id;
+                $wilayah = (new \yii\db\Query())
+                        ->select("wilayah_id")
+                        ->from('user')
+                        ->where("id = " . Yii::$app->user->id)->scalar();
+                $model->wilayah_id = $wilayah;
+                
                 if($model->save(false)){
                     return $this->redirect(['index']);
                 }else{

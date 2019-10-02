@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			</div>
 		</div>
 		<div class="form-group">
-			<input type="submit" value="lihat" class="form-control btn btn-info" >
+			<input type="submit" value="lihat" class="form-control btn btn-info" style="color:#fff;" >
 		</div>
 	</form>
 	<div class="row">

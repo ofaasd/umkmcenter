@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\helpers\Url;
 
 class SiteController extends Controller
 {
@@ -61,6 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (empty(Yii::$app->user->id)) {
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
+        }
         return $this->render('index');
     }
 

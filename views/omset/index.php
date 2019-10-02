@@ -13,12 +13,20 @@ $this->title = 'Daftar Omset UMKM';
 $this->params['breadcrumbs'][] = $this->title;
 $bulan = array(1=>"Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nop","Des");
 ?>
+<style>
+    .table .thead-dark th{
+        background:#2980b9 ;
+    }
+    table{
+        font-size:0.75em;
+    }
+</style>
 <div class="omset-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Omset', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Omset', ['create'], ['class' => 'btn btn-info']) ?>
     </p>
     <div class="form-group">
         <label for="tahun">Tahun : </label>
@@ -26,7 +34,7 @@ $bulan = array(1=>"Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","N
     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <table class="table">
+    <table class="table" width="100%">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Nama</th>
@@ -41,7 +49,23 @@ $bulan = array(1=>"Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","N
             <?php foreach($model as $row){
                 echo "<tr><td style='font-size:9pt;'> <a href='" . Url::to(['omset/createomset',"id"=>$row['id']]) . "'>" . $row['nama_usaha'] . "</a></td>";
                 foreach($bulan as $key=>$value){
-                    echo "<td><a href='#' onclick='add_omset(" . $row['id'] .",". $key.")'>" . Helpers::getOmset($row['id'],$key,2019) . "</a></td>";
+                    $omset = array();
+                    $omset = Helpers::getOmset($row['id'],$key,2019);
+//echo var_dump($omset);
+                    $id = "";
+                    $jmlomset = "0";
+                    foreach($omset as $k=>$v){
+                        $id = $k;
+                        $jmlomset = $v;
+                    }
+                   // echo $jmlomset;
+                    if($jmlomset == 0){
+                        echo "<td><a href='#' onclick='add_omset(" . $row['id'] .",". $key."," . $id  . ")'>" . $jmlomset . "</a></td>";
+                    }else{
+                         echo "<td><a href='#' onclick='add_omset(" . $row['id'] .",". $key.",". $id.")'>" . $jmlomset . "</a></td>";
+                    }
+
+                    
                 }
                 echo "</tr>";
             }?>
@@ -53,9 +77,9 @@ $bulan = array(1=>"Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","N
 
 <script>
 
-    function add_omset(usaha_id,bulan){
+    function add_omset(usaha_id,bulan,id){
         var tahun = $("#tahun_omset").val();
-        window.location.href = "<?= Url::to(['omset/addomset']);?>?usaha_id="+usaha_id+"&bulan="+bulan+"&tahun="+tahun;
+        window.location.href = "<?= Url::to(['omset/addomset']);?>?usaha_id="+usaha_id+"&bulan="+bulan+"&tahun="+tahun+"&id="+id;
         // $.ajax({
         //     url : "<?= Url::to(['omset/addomset']);?>",
         //     method : "POST",

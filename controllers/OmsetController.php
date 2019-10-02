@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\Usaha;
 use app\models\UsahaSearch;
 use yii\helpers\ArrayHelper;
-
+use yii\helpers\Url;
 /**
  * OmsetController implements the CRUD actions for Omset model.
  */
@@ -20,6 +20,12 @@ class OmsetController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function init(){
+        if (empty(Yii::$app->user->id)) {
+            //throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            return $this->redirect(Url::base()."/user/login");
+        }
+    }
     public function behaviors()
     {
         return [
@@ -38,9 +44,16 @@ class OmsetController extends Controller
      */
     public function actionIndex()
     {
-        $model = Usaha::find()->all();
+        if(!empty(Yii::$app->user->id) && Yii::$app->user->can("admin")){
+            $model = Usaha::find()->all();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        }elseif(!empty(Yii::$app->user->id)){
+            $wilayah = (new \yii\db\Query())
+                    ->select("wilayah_id")
+                    ->from('user')
+                    ->where("id = " . Yii::$app->user->id)->scalar();
+            $model = Usaha::find()->where("wilayah_id=" . $wilayah)->all();
+        }
         return $this->render('index', [
             'model' => $model,
             //'dataProvider' => $dataProvider,
@@ -102,18 +115,31 @@ class OmsetController extends Controller
     }
 
     public function actionAddomset(){
-        $model = new Omset();
-        $id = Yii::$app->request->get("usaha_id");
+        
+        $usaha_id = Yii::$app->request->get("usaha_id");
+        $id = Yii::$app->request->get("id");
+        if($id == 0){
+            $model = new Omset;
+        }else{
+            $model = Omset::find()->where(['id'=>$id])->one();
+        }
+        
         $bulan = array();
         $bulan[0] = Yii::$app->request->get("bulan");
         $bulan[1] = Yii::$app->request->get("tahun");
         $usaha = (new \yii\db\Query())
                  ->select(['id','nama_usaha'])
                  ->from('usaha')
-                 ->where("id=" .$id)
+                 ->where("id=" .$usaha_id)
                  ->all();
          if ($model->load(Yii::$app->request->post()) ) {
-            $model->save();
+            if($id == 0){
+                $model->save();
+            }else{
+                $model->id = $id;
+                $model->update();
+            }
+            
             return $this->redirect(['index', 'succ' => 1]);
         }
 

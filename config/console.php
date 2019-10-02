@@ -27,6 +27,7 @@ $config = [
         ],
         'db' => $db,
     ],
+
     'params' => $params,
     /*
     'controllerMap' => [
@@ -35,6 +36,11 @@ $config = [
         ],
     ],
     */
+    'modules' => [
+        'user' => [
+            'class' => 'app\modules\user\Module',
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {

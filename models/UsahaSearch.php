@@ -5,12 +5,14 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Usaha;
+use Yii;
 
 /**
  * UsahaSearch represents the model behind the search form of `app\models\Usaha`.
  */
 class UsahaSearch extends Usaha
 {
+    public $wilayah;
     /**
      * {@inheritdoc}
      */
@@ -66,6 +68,15 @@ class UsahaSearch extends Usaha
             'kredit_bank' => $this->kredit_bank,
             'tenaga_kerja' => $this->tenaga_kerja,
         ]);
+        if(!empty(Yii::$app->user->id) && !Yii::$app->user->can("admin")){
+            $this->wilayah = (new \yii\db\Query())
+                    ->select("wilayah_id")
+                    ->from('user')
+                    ->where("id = " . Yii::$app->user->id)->scalar();
+            $query->andFilterWhere([
+                'wilayah_id'=>$this->wilayah,
+            ]);
+        }
 
         $query->andFilterWhere(['like', 'nama_usaha', $this->nama_usaha])
             ->andFilterWhere(['like', 'tahun_berdiri', $this->tahun_berdiri])

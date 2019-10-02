@@ -5,12 +5,14 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Omset;
+use Yii;
 
 /**
  * OmsetSearch represents the model behind the search form of `app\models\Omset`.
  */
 class OmsetSearch extends Omset
 {
+    public $wilayah;
     /**
      * {@inheritdoc}
      */
@@ -64,6 +66,15 @@ class OmsetSearch extends Omset
             'penjualan' => $this->penjualan,
             'bulan' => $this->bulan,
         ]);
+        if(!empty(Yii::$app->user->id) && !Yii::$app->user->can("admin")){
+            $this->wilayah = (new \yii\db\Query())
+                    ->select("wilayah_id")
+                    ->from('user')
+                    ->where("id = " . Yii::$app->user->id)->scalar();
+            $query->andFilterWhere([
+                'wilayah_id'=>$this->wilayah,
+            ]);
+        }
 
         return $dataProvider;
     }

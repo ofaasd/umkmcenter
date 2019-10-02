@@ -13,7 +13,7 @@ use yii\bootstrap4\Modal;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, '  nama')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tahun_acara')->textInput() ?>
     <!-- bikin input type hidden untuk menyimpan peserta yang mendaftar pada pelatihan tersebut.  -->
@@ -24,14 +24,14 @@ use yii\bootstrap4\Modal;
     if(isset($usaha)){
         Modal::begin([
     	    'title' => 'Tambah Peserta Pelatihan',
-    	    'toggleButton' => ['label' => 'Tambah Peserta', 'class'=>'btn btn-info','style'=>'margin:10px 0;'],
+    	    'toggleButton' => ['label' => 'Tambah Peserta', 'class'=>'btn btn-warning','style'=>'margin:10px 0;'],
 
     	]);
         echo "<table width='100%' cellpadding=5>
         		<tr><td>Nama Usaha</td><td>Action</td></tr>";
        	foreach($usaha as $row){
        		echo "<tr><td>" . $row['nama_usaha'] . "</td><td class='baris-". $row['id'] . "'>";
-       		echo ($row['jumlah']==0)?"<a href='#' class='btn btn-info' onclick='add(" . $row['id'] . ",\"" . $row['nama_usaha'] . "\")'>Tambah</a>":"";
+       		echo ($row['jumlah']==0)?"<a href='#' class='btn btn-warning' onclick='add(" . $row['id'] . ",\"" . $row['nama_usaha'] . "\")'>Tambah</a>":"";
        		echo "</td></tr>";
        	}
        	echo "</table>";
@@ -42,7 +42,7 @@ use yii\bootstrap4\Modal;
     ?>
     
     <div class="form-group" style="display:block; margin:10px 0;">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-info']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -55,6 +55,6 @@ use yii\bootstrap4\Modal;
 	}
   function del(id,nama){
     $(".peserta-"+id).remove();
-    $(".baris-"+id).html("<a href='#' class='btn btn-info' onclick='add("+id+",\""+nama+"\")'>Tambah</a>");
+    $(".baris-"+id).html("<a href='#' class='btn btn-warning' onclick='add("+id+",\""+nama+"\")'>Tambah</a>");
   }
 </script>

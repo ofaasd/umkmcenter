@@ -42,7 +42,7 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'tenaga_kerja') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Search', ['class' => 'btn btn-info']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 

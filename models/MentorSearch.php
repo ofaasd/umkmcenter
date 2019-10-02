@@ -5,12 +5,14 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Mentor;
+use Yii;
 
 /**
  * MentorSearch represents the model behind the search form of `app\models\Mentor`.
  */
 class MentorSearch extends Mentor
 {
+    public $wilayah;
     /**
      * {@inheritdoc}
      */
@@ -57,9 +59,26 @@ class MentorSearch extends Mentor
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
+        if(!empty(Yii::$app->user->id) && Yii::$app->user->can("admin")){
+             //echo "masuk sini";
+            $query->andFilterWhere([
+                'id' => $this->id,
+            ]);
+        }elseif(!empty(Yii::$app->user->id)){
+            $this->wilayah = (new \yii\db\Query())
+                    ->select("wilayah_id")
+                    ->from('user')
+                    ->where("id = " . Yii::$app->user->id)->scalar();
+            $query->andFilterWhere([
+                'id' => $this->id,
+               
+                'wilayah_id'=>$this->wilayah,
+            ]);
+        }else{
+           
+        }
+
+        
 
         $query->andFilterWhere(['like', 'nama', $this->nama]);
 

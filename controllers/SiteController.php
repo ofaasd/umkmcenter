@@ -66,7 +66,32 @@ class SiteController extends Controller
             //throw new ForbiddenHttpException('You are not allowed to perform this action.');
             return $this->redirect(Url::base()."/user/login");
         }
-        return $this->render('index');
+        $omset = (new \yii\db\Query())
+                 ->select("sum(omset)")
+                 ->from("omset")
+                 ->scalar();
+        $umkm = (new \yii\db\Query())
+                 ->select("count(*)")
+                 ->from("usaha")
+                 ->scalar();
+        $mentor = (new \yii\db\Query())
+                 ->select("count(*)")
+                 ->from("mentor")
+                 ->scalar();
+        $program = (new \yii\db\Query())
+                 ->select("count(*)")
+                 ->from("program")
+                 ->scalar();
+        $grafik = Yii::$app->db->createCommand("SELECT (select (sum(omset)) from omset where omset.bulan = o.bulan) as jumlah_bulan, bulan FROM `omset` o group by bulan")->queryAll();
+        $pie = Yii::$app->db->createCommand("select (select count(*) from usaha where usaha.wilayah_id = w.id) as jumlah_wilayah, nama_kota from wilayah w")->queryAll();
+        return $this->render('index',array(
+            'omset'=>$omset,
+            'umkm'=>$umkm,
+            'mentor'=>$mentor,
+            'program'=>$program,
+            'grafik'=>$grafik,
+            'pie'=>$pie,
+        ));
     }
 
     /**

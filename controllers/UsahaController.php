@@ -4,19 +4,21 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Usaha;
+use app\models\UsahaPhoto;
 use app\models\UsahaSearch;
 use app\models\Pemilik;
 use app\models\Bidang;
 use app\models\Izin;
 use app\models\Kategori;
 use app\models\Mentor;
+use app\helpers\Helpers;
 
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
-
+use yii\helpers\Html;
 /**
  * UsahaController implements the CRUD actions for Usaha model.
  */
@@ -158,7 +160,53 @@ class UsahaController extends Controller
 
         return $this->redirect(['index']);
     }
+    public function actionUpload($id){
 
+        $model = $this->findModel($id);
+        return $this->render('upload',[
+            'model'=>$model,
+        ]);
+    }
+    public function actionUploadimg($id){
+        if(Yii::$app->request->post()){
+            $nama = md5(date('Y-m-d H:i:s'));
+            $gambar = explode(".",$_FILES['image']['name']);
+            $extension = $gambar[1];
+        
+            $model = new UsahaPhoto();
+            $model->usaha_id = $id;
+            $model->photo = $nama . "." . $extension;
+            $model->tanggal = date('Y-m-d H:i:s');
+            if($model->save(false)){
+                $simpan = move_uploaded_file($_FILES['image']['tmp_name'], Yii::getAlias('@webroot') . "/asset/upload/usaha/" . $nama . "." . $extension);
+                if($simpan){
+                    return '{}';
+                }else{
+                    return '{["error"=>"gagal upload"]}';
+                }
+            }
+        }
+    }
+    public function actionRefreshimg($id){
+        $image = Helpers::getUsahaPhoto($id);
+        $temp = "";
+        foreach($image as $row){
+            $temp .='<div class="col-md-4">';
+            //panggil foto dengan efek fancy
+            $temp .= Html::a(Html::img(Url::base() . "/asset/upload/usaha/" . $row['photo']), Url::base() . "/asset/upload/usaha/" . $row['photo'], ['data-fancybox' => true]);
+            //echo "<img src='" . Url::base() . "/asset/upload/profile/" . $gambar['file'] . "' width='100'>" ;
+            $temp .= "</div>";
+        }
+        return $temp;
+    }
+    public function actionDeleteimg($id){
+        $usaha_photo = UsahaPhoto::findOne($id);
+        $usahaid = $usaha_photo->usaha_id;
+        if($usaha_photo->delete()){
+            $this->redirect(Url::base()."/usaha/upload?id=".$usahaid."&succ=1");
+        }
+
+    }
     /**
      * Finds the Usaha model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

@@ -15,5 +15,22 @@
 			return $simpan;
 			//$hasil = Yii::$app->db->createCommand($sql)->
 		}
+		public static function getUserPhoto($userid){
+			//$sql = "select file from user_photo where user_id=" . $userid;
+			$file = (new \yii\db\Query())
+					->select("file")
+					->from("user_photo")
+					->where(['user_id'=>$userid])
+					->one();
+			return $file;
+		}
+		public static function getUsahaPhoto($id){
+			$file = (new \yii\db\Query())
+					->select("id,photo")
+					->from("usaha_photo")
+					->where(['usaha_id'=>$id])
+					->all();
+			return $file;
+		}
 	}
 ?>

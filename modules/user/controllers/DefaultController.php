@@ -77,7 +77,6 @@ class DefaultController extends Controller
     {
         /** @var \app\modules\user\models\forms\LoginForm $model */
         $model = $this->module->model("LoginForm");
-
         // load post data and login
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
@@ -353,7 +352,7 @@ class DefaultController extends Controller
     public function actionProfile()
     {
         /** @var \app\modules\user\models\Profile $profile */
-
+        $this->layout = '../../../../views/layouts/main';
         // set up profile and load post data
         $profile = Yii::$app->user->identity->profile;
         $loadedPost = $profile->load(Yii::$app->request->post());

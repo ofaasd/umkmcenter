@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use rmrevin\yii\fontawesome\FAS;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UsahaSearch */
@@ -44,7 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kredit_bank',
             //'tenaga_kerja',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{upload} {update} {delete}',
+                'buttons' => [
+                    'upload' => function ($url,$model) {
+                        return Html::a(FAS::icon('image'),['usaha/upload','id'=>$model->id]);
+                    }
+                ]
+
+            ],
         ],
     ]); ?>
 

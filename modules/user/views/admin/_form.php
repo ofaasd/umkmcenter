@@ -1,8 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
-
+use app\modules\user\models\Wilayah;
 /**
  * @var yii\web\View $this
  * @var app\modules\user\Module $module
@@ -14,6 +15,7 @@ use yii\widgets\ActiveForm;
 
 $module = $this->context->module;
 $role = $module->model("Role");
+//$wilayah = $module->model("Wilayah");
 ?>
 
 <div class="user-form">
@@ -43,7 +45,10 @@ $role = $module->model("Role");
 
     <?= $form->field($user, 'banned_reason'); ?>
 
-   <?= $form->field($user, 'wilayah_id')->dropDownList($role::dropdown()); ?>
+   <?php  //$form->field($user, 'wilayah_id')->dropDownList($wilayah::dropdown()); ?>
+   <label class="control-label">Wilayah</label>
+   <?= Html::activeDropDownList($user, 'wilayah_id',
+      ArrayHelper::map(Wilayah::find()->all(), 'id', 'nama_kota'),['class'=>'form-control']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($user->isNewRecord ? Yii::t('user', 'Create') : Yii::t('user', 'Update'), ['class' => $user->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

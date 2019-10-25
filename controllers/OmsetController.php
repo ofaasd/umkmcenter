@@ -176,6 +176,57 @@ class OmsetController extends Controller
         ]);
     }
 
+
+    public function actionImport($id){
+        //bikin skenario kalo import nya ke tumpuk
+        if(!empty(Yii::$app->request->post())){
+            $fileName = $_FILES['excel']['tmp_name'];
+            $data = \moonland\phpexcel\Excel::import($fileName, [
+                'setFirstRecordAsKeys' => true, // if you want to set the keys of record column with first record, if it not set, the header with use the alphabet column on excel. 
+                'setIndexSheetByName' => true, // set this if your excel data with multiple worksheet, the index of array will be set with the sheet name. If this not set, the index will use numeric. 
+                'getOnlySheet' => 'sheet1', // you can set this property if you want to get the specified sheet from the excel data with multiple worksheet.
+            ]);
+            $id = $_POST['id'];
+            $total = 0;
+            foreach($data as $value){
+                $omset = (new \yii\db\Query())
+                        ->select(['id'])
+                        ->from("omset")
+                        ->where(["usaha_id"=>$id,"bulan"=>$value['bulan'],"tahun"=>$value['tahun']])
+                        ->count();
+                //return $omset;
+                if($omset>0){
+                    $model = $this->findModel($id);
+                    $model->omset = $value['omset'];
+                    $model->tanggal = date('Y-m-d H:i:s');
+                    if($model->save(false)){
+                        $total += 1;
+                    }
+                }else{
+                    $model = new Omset();
+                    $model->usaha_id = $id;
+                    $model->omset = $value['omset'];
+                    $model->penjualan = 0;
+                    $model->bulan = $value['bulan'];
+                    $model->tahun = $value['tahun'];
+                    $model->tanggal = date('Y-m-d H:i:s' );
+                    //$model->save();
+                    if($model->save(false)){
+                        $total += 1;
+                    }
+                }
+                // echo $value['omset'] . "<br />";
+            }
+            if($total == count($data)){
+                return $this->redirect(["omset/index","succ"=>1]);
+            }else{
+                return $this->redirect(["omset/import","succ"=>1,"id"=>$id]);
+            }
+            //return count($data);
+
+        }
+        return $this->render("import",array("id"=>$id));
+    }
     /**
      * Deletes an existing Omset model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
